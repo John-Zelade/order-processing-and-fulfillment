@@ -1,0 +1,46 @@
+.orders-container{
+    display: flex !important;
+    justify-content: space-between;
+}
+.status{
+    width: 50%;
+}
+.total-prc{
+    display: flex;
+    gap: 8rem;
+}
+.details-container{
+    display: flex !important;
+    gap: 1rem !important;
+}
+.details-container>* :nth-child(1){
+    font-weight: bold;
+
+}
+.details-container>* :nth-child(2){
+    padding: .2rem;
+    border: 1px solid rgba(129, 129, 129, 0.73);
+    width: 90%;
+
+}
+.details-container>* {
+    display: flex;
+    flex-direction: column;
+
+}
+.logo-container{
+    display: flex !important;
+    justify-content: space-between !important;
+}
+.logo-container >:nth-child(1){
+    gap: .5rem !important;
+    display: flex !important;
+    justify-content: space-between !important;
+}
+.logo-container >:nth-child(1) >:nth-child(2){
+    font-size: 36px;
+    font-weight: bold;
+}
+.logo-container >:nth-child(2){
+    margin-right: 2rem;
+}

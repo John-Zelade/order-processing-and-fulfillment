@@ -15,6 +15,11 @@ class order extends Model
         return $this->hasMany(order_items::class, 'OrderID');
     }
 
+    public function customer()
+    {
+        return $this->belongsTo(customer::class, 'id');
+    }
+
     public function saveOrders($data){
         return $this->create($data);
     }

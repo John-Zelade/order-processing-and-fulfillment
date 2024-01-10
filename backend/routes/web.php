@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+/**********************************View admin pages********************************************/
+Route::get('admin/orders', [OrderController::class, 'Orders'])->name('admin.orders');
+
+Route::get('/admin/order/{id}/update-status',[OrderController::class,'EditStatus']);
+Route::post('update', [OrderController::class, 'UpdateStatus'])->name('updateStatus');

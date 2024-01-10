@@ -25,4 +25,4 @@ Route::put('orders/{id}/cancel', [OrderController::class, 'cancelOrder']);
 /***********************************Admin API***********************************/
 Route::get('orders/', [OrderController::class, 'Orders']);
 Route::get('order-items/', [OrderController::class, 'orderItems']);
-Route::put('orders/{id}/update-status', [OrderController::class, 'updateStatus']);
+Route::put('orders/{id}/update-status', [OrderController::class, 'updateOrderStatus']);

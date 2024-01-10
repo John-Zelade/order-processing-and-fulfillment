@@ -32,6 +32,13 @@ class OrderController extends Controller
     }
 
 /********************************Display Orders********************************/
+function Orders(){
+    $orders=order::all();
+
+    return view('admin.orders', ['orders' => $orders]);
+}
+
+/********************************Display Orders*******************************
     function Orders(){
         $order=order::all();
         return response()->json([
@@ -39,6 +46,7 @@ class OrderController extends Controller
             'order'=>$order
       ]);
     }
+*/
 
 /**********************Display Order Items****************************/
     function  orderItems(){
@@ -93,7 +101,30 @@ class OrderController extends Controller
         }
     }
 
+/**********************Edit Status Of Order Items****************************/
+    function  EditStatus($id){
+        $order= order_items::join('orders', 'order_items.OrderID', '=', 'orders.id')
+        ->join('customers', 'orders.CustomerID', '=', 'customers.id')
+        ->join('products', 'order_items.ProductID', '=', 'products.id')
+        ->select('order_items.id', 'order_items.Qty', 'order_items.UnitPrice', 'orders.OrderNo', 'customers.name', 'orders.Status', 'orders.OrderDate', 'orders.ShippedAddress', 'orders.OrderTotal',
+                  'products.item')
+        ->where('order_items.OrderID', $id)
+        ->first();
+        return view('admin.update-status',['StatusOrder'=>$order]);
+    }
+
+
 /**********************Update Status Of Order Items****************************/
+    function UpdateStatus(Request $request){
+        $order = order::find($request->id);
+        $order->Status = $request->status; // Use 'status' instead of 'Status'
+        
+        //echo '<script>alert("' . htmlspecialchars($request->status) . '")</script>';
+        $order->save();
+        return redirect('admin/orders');
+}
+
+/**********************Update Status Of Order Items***************************
     function  updateStatus(Request $request, $id){
         $order=order::find($id);
            // Validate the request data based on your requirements
@@ -113,5 +144,20 @@ class OrderController extends Controller
                 'order'=>"Order Not Found",
             ]);
         }
+    }*/
+    function  updateOrderStatus($id){
+
+        $orderItem= order_items::join('orders', 'order_items.OrderID', '=', 'orders.id')
+        ->join('customers', 'orders.CustomerID', '=', 'customers.id')
+        ->join('products', 'order_items.ProductID', '=', 'products.id')
+        ->select('order_items.id', 'order_items.Qty', 'order_items.UnitPrice', 'orders.OrderNo', 'customers.name', 'orders.Status', 'orders.OrderDate', 'orders.ShippedAddress', 'orders.OrderTotal',
+                  'products.item')
+        ->where('order_items.OrderID', $id)
+        ->first();
+
+            return response()->json([
+                'order' => $orderItem,
+            ]);
+       
     }
 }
