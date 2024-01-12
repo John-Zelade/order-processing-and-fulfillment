@@ -9,6 +9,7 @@ use App\Models\customer;
 
 class OrderController extends Controller
 {
+/*****************************************************API ROUTES******************************************************/
 /*********************************Place Order**********************************/
     function placeOrder(Request $request){
         $order=order::create([
@@ -30,14 +31,6 @@ class OrderController extends Controller
             'Order'=>$order
         ]);
     }
-
-/********************************Display Orders********************************/
-function Orders(){
-    $orders=order::all();
-
-    return view('admin.orders', ['orders' => $orders]);
-}
-
 /********************************Display Orders*******************************
     function Orders(){
         $order=order::all();
@@ -79,7 +72,7 @@ function Orders(){
         }
     }
 
-/*****************************Cancel Order**************************************/
+/*****************************Cancel Order*************************************
     function cancelOrder(Request $request, $id){
         $orderItem= order_items::join('orders', 'order_items.OrderID', '=', 'orders.id')
         ->join('customers', 'orders.CustomerID', '=', 'customers.id')
@@ -99,30 +92,7 @@ function Orders(){
                 'order'=>"Order Not Found",
             ]);
         }
-    }
-
-/**********************Edit Status Of Order Items****************************/
-    function  EditStatus($id){
-        $order= order_items::join('orders', 'order_items.OrderID', '=', 'orders.id')
-        ->join('customers', 'orders.CustomerID', '=', 'customers.id')
-        ->join('products', 'order_items.ProductID', '=', 'products.id')
-        ->select('order_items.id', 'order_items.Qty', 'order_items.UnitPrice', 'orders.OrderNo', 'customers.name', 'orders.Status', 'orders.OrderDate', 'orders.ShippedAddress', 'orders.OrderTotal',
-                  'products.item')
-        ->where('order_items.OrderID', $id)
-        ->first();
-        return view('admin.update-status',['StatusOrder'=>$order]);
-    }
-
-
-/**********************Update Status Of Order Items****************************/
-    function UpdateStatus(Request $request){
-        $order = order::find($request->id);
-        $order->Status = $request->status; // Use 'status' instead of 'Status'
-        
-        //echo '<script>alert("' . htmlspecialchars($request->status) . '")</script>';
-        $order->save();
-        return redirect('admin/orders');
-}
+    }*/
 
 /**********************Update Status Of Order Items***************************
     function  updateStatus(Request $request, $id){
@@ -145,19 +115,129 @@ function Orders(){
             ]);
         }
     }*/
-    function  updateOrderStatus($id){
 
-        $orderItem= order_items::join('orders', 'order_items.OrderID', '=', 'orders.id')
+
+/*
+|--------------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------------
+|
+*/
+/***********************************ADMIN**************************************/
+
+/********************************Display Orders********************************/
+function Orders(){
+    $orders=order::all();
+
+    return view('admin.orders', ['orders' => $orders]);
+}
+/**********************Edit Status Of Order Items****************************/
+    function  EditStatus($id){
+        $order= order_items::join('orders', 'order_items.OrderID', '=', 'orders.id')
         ->join('customers', 'orders.CustomerID', '=', 'customers.id')
         ->join('products', 'order_items.ProductID', '=', 'products.id')
         ->select('order_items.id', 'order_items.Qty', 'order_items.UnitPrice', 'orders.OrderNo', 'customers.name', 'orders.Status', 'orders.OrderDate', 'orders.ShippedAddress', 'orders.OrderTotal',
                   'products.item')
         ->where('order_items.OrderID', $id)
         ->first();
-
-            return response()->json([
-                'order' => $orderItem,
-            ]);
-       
+        return view('admin.update-status',['StatusOrder'=>$order]);
     }
+
+
+/**********************Update Status Of Order Items****************************/
+    function UpdateStatus(Request $request){
+        $order = order::find($request->id);
+        $order->Status = $request->status; // Use 'status' instead of 'Status'
+        
+        //echo '<script>alert("' . htmlspecialchars($request->status) . '")</script>';
+        $order->save();
+        return redirect('admin/orders');
+}
+/******************************************************************************* */
+    function  updateOrderStatus(){
+        $id=2;
+        $order = order::join('customers', 'orders.CustomerID', '=', 'customers.id')
+        ->select('orders.Status','customers.id AS CustomerID')
+        ->where('orders.id', $id)
+        ->get();
+
+        $orderItems = [];
+        foreach ($order as $order) {
+            $orderItems[] = [
+                'status' => $order->Status,
+                'customer_id' => $order->CustomerID,
+            ];
+        }
+        
+            return response()->json([
+                //'customer'=> $customer,
+                'order items' => $orderItems[0]['customer_id'],
+            ]);
+        
+    }
+
+
+/***********************************CUSTOMER**************************************/
+  /****************************Display To Pay orders******************************/
+    function  pendingOrders( $customerID){
+        $customer = customer::find($customerID);
+
+        $orderItem= order_items::join('orders', 'order_items.OrderID', '=', 'orders.id')
+        ->join('customers', 'orders.CustomerID', '=', 'customers.id')
+        ->join('products', 'order_items.ProductID', '=', 'products.id')
+        ->select('order_items.id', 'order_items.Qty', 'order_items.UnitPrice','orders.id as OrderID', 'orders.OrderNo', 'customers.name', 'orders.Status', 'orders.OrderDate', 'orders.ShippedAddress', 'orders.OrderTotal',
+                  'products.item')
+        ->where('customers.id', $customerID)
+        ->where('orders.Status', 'Pending')
+        ->get();
+
+        
+        //echo '<script>alert("' . htmlspecialchars($orderItem) . '")</script>';
+        return view('customer.to-pay',['orderItem'=>$orderItem, 'customerID' => $customerID]);
+    }
+    
+  /****************************Cancel orders******************************/
+    function  cancelOrder(Request $request){
+        //$order = order::find($request->id);
+         // Find the order with the associated customer
+        $order = order::join('customers', 'orders.CustomerID', '=', 'customers.id')
+        ->select('orders.*', 'customers.id AS CustomerID')
+        ->where('orders.id', $request->id)
+        ->first();
+
+         // Update the order status to "Cancelled"
+        $order->update(['Status' => 'Cancelled']);
+
+        // Redirect to the cancelled orders page
+        return redirect()->route('customer.getCancelOrder', ['id' => $order->CustomerID]);
+    }
+
+     /****************************Cancel orders******************************/
+     function  getCancelOrder($customerID){
+        $customer = customer::find($customerID);
+
+        $orderItem= order_items::join('orders', 'order_items.OrderID', '=', 'orders.id')
+        ->join('customers', 'orders.CustomerID', '=', 'customers.id')
+        ->join('products', 'order_items.ProductID', '=', 'products.id')
+        ->select('order_items.id', 'order_items.Qty', 'order_items.UnitPrice', 'orders.OrderNo', 'customers.name', 'orders.Status', 'orders.OrderDate', 'orders.ShippedAddress', 'orders.OrderTotal',
+                  'products.item')
+        ->where('customers.id', $customerID)
+        ->where('orders.Status', 'Cancelled')
+        ->get();
+
+        return view('customer.cancellations',['orderItem'=>$orderItem, 'customerID' => $customerID]);
+    }
+    /****************************Display To Pay orders******************************/
+    function  ordersToShip(){
+        return view('customer.to-ship');
+    }
+    /****************************Display To Pay orders******************************/
+    function  ordersToReceive(){
+        return view('customer.to-receive');
+    }
+    /****************************Display To Pay orders******************************/
+    function  receivedOrders(){
+        return view('customer.received');
+    }
+
 }

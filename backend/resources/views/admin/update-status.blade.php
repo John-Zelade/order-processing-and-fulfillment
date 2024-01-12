@@ -37,12 +37,12 @@
                 </div>
                 <div>
                     <span> Email</span>
-                    <span>dghdshdshdsfhdshdsfh</span>
+                    <span>user@gmail.com</span>
                     
                 </div>
                 <div>
                     <span> Phone</span>
-                    <span>dghdshdshdsfhdshdsfh</span>
+                    <span>09234567893</span>
                  
                 </div>
                 <div>

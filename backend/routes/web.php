@@ -17,9 +17,15 @@ use App\Http\Controllers\OrderController;
 Route::get('/', function () {
     return view('welcome');
 });
+/**********************************View customer pages********************************************/
+Route::get('/customer/to-pay/{id}/orders',[OrderController::class,'pendingOrders'])->name('customer.pendingOrders');
+Route::get('/customer/to-ship/orders',[OrderController::class,'ordersToShip'])->name('customer.ordersToShip');
+Route::get('/customer/to-receive/orders',[OrderController::class,'ordersToReceive'])->name('customer.ordersToReceive');
+Route::get('/customer/received/orders',[OrderController::class,'receivedOrders'])->name('customer.receivedOrders');
+Route::get('/customer/cancelled/{id}/order', [OrderController::class, 'getCancelOrder'])->name('customer.getCancelOrder');
+Route::post('cancelled/order', [OrderController::class, 'cancelOrder'])->name('cancelOrder');
 
 /**********************************View admin pages********************************************/
 Route::get('admin/orders', [OrderController::class, 'Orders'])->name('admin.orders');
-
 Route::get('/admin/order/{id}/update-status',[OrderController::class,'EditStatus']);
 Route::post('update', [OrderController::class, 'UpdateStatus'])->name('updateStatus');

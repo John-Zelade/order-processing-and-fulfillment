@@ -198,3 +198,6 @@ body{
    .back-btn:active {
     transform: translate(0em, 0.2em);
    }
+   .customer-info-pending{
+    max-width: 350px;
+   }
