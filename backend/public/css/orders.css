@@ -39,3 +39,8 @@
 .orders-container{
     margin-top: 1rem;
 }
+.admin-logo-container>:nth-child(1){
+    font-weight: bold;
+    align-items: center;
+    display: flex;
+}

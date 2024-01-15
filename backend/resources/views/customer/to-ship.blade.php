@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/Navbar.css') }}" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400&display=swap" rel="stylesheet">
@@ -13,18 +14,36 @@
 <body>
     <div class="header">
         <div class="logo-container">
-            <div><img src="{{ asset('css/img/wave-logo.png') }}" alt=""></div>
+        <div><img src="{{ asset('css/img/wave-logo.png') }}" alt=""></div>
+            <div class="nav">
             <div>WAVE</div>
+            <div class="nav-links" id="navLinks">
+				<ul>
+					<li> <a href="#">HOME</a></li>
+					<li> <a href="#">PRODUCTS</a></li>
+					<li> <a href="#">CONTACT</a></li>
+					<li> <a href="#">ABOUT</a></li>
+				</ul>
+			</div>
+            </div>
         </div>
         <div class="status-container">
-            <div><a href="{{ route('customer.pendingOrders') }}">To Pay    </a></div>
-            <div><a href="{{ route('customer.ordersToShip') }}">To Ship   </a></div>
-            <div><a href="{{ route('customer.ordersToReceive') }}">To Recieve</a></div>
-            <div><a href="{{ route('customer.receivedOrders') }}">Recieved   </a></div>
-            <div><a href="{{ route('customer.getCancelOrder') }}">Cancellations</a></div>
+            <div> <a href="{{ route('customer.pendingOrders',  ['id' => $customerID]) }}">To Pay</a></div>
+            <div><a href="{{ route('customer.ordersToShip', ['id' => $customerID]) }}">To Ship   </a></div>
+            <div><a href="{{ route('customer.ordersToReceive', ['id' => $customerID]) }}">To Recieve</a></div>
+            <div><a href="{{ route('customer.receivedOrders', ['id' => $customerID]) }}">Recieved   </a></div>
+            <div><a href="{{ route('customer.getCancelOrder',  ['id' => $customerID]) }}">Cancellations</a></div>
         </div>
     </div>
+
+    @if($orderItem->isEmpty())
+<!--<p>No order items found. Continue shopping <a href="">here</a>.</p>-->
+<p>No order items found. Continue shopping <a href="">here</a>.</p>
+@else
+@foreach($orderItem as $orderItem)
     <div class="orders-container">
+    @csrf  <!-- @csrf is a token to submit form -->
+    <input type="hidden" name="id" value="{{$orderItem->OrderID}}">
             <div class="status">
                 <div>Packed</div>
                 <div class="span-container">
@@ -39,14 +58,12 @@
                     
                     <div>
                         <i class="fa-solid fa-map-location-dot"></i>
-                        <div>
-                        <span><strong>Thirdy Rubio </strong> </br>
-                        Blk.3 Lot.8 example address, example address, Camarin</br>
-                        Caloocan City, Metro Manila-Caloocan, Caloocan</br>
-                        City, Baranggay 666</br>
+                        <div class="customer-info-pending">
+                        <span><strong>{{$orderItem->name}} </strong> </br>
+                        {{$orderItem->ShippedAddress}}
                         </span>
                         </div>
-                    </div>      
+                    </div>     
                 </div>
             </div>
 
@@ -60,30 +77,27 @@
                             <th>Quantity</th>
                         </tr>
                         <tr>
-                            <td>WAVE Thumbler - 500ML</td>
-                            <td>499</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>WAVE Thumbler - 500ML</td>
-                            <td>499</td>
-                            <td>1</td>
+                            <td>{{$orderItem->item}} </td>
+                            <td>{{$orderItem->UnitPrice}} </td>
+                            <td>{{$orderItem->Qty}}</td>
                         </tr>
                     </table>
                 </div>
 
                 <div>
-                    <div class="total-prc">Total Price:</div>
+                    <div class="total-prc">Total Price: {{$orderItem->UnitPrice * $orderItem->Qty}}</div>
                     <div>
                         <div>Paid by</div>
                          <span>Cash on Delivery</span>
                     </div>
                     <div>
                         <div>Order no.</div>
-                        <span>############</span>
+                        <span>{{$orderItem->OrderNo}} </span>
                     </div>
                 </div>
             </div>
     </div>
+    @endforeach
+@endif
 </body>
 </html>

@@ -13,7 +13,7 @@
 </head>
 <body>
     <div class="header">
-        <div class="logo-container">
+        <div class="admin-logo-container">
             <div>
                 <div><img src="{{ asset('css/img/wave-logo.png') }}" alt=""></div>
                 <div>WAVE</div>
@@ -27,7 +27,7 @@
     </div>
 <form class="orders-container" action="{{ route('updateStatus') }}" method="POST">
 @csrf  <!-- @csrf is a token to submit form -->
-      <input type="hidden" name="id" value="{{$StatusOrder->id}}">
+      <input type="hidden" name="id" value="{{$StatusOrder->orderID}}">
         <div class="status">
             <div>Delivery Details</div>
             <div class="details-container">

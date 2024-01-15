@@ -13,9 +13,11 @@
 </head>
 <body>
     <div class="header">
-        <div class="logo-container">
-            <div><img src="{{ asset('css/img/wave-logo.png') }}" alt=""></div>
-            <div>WAVE</div>
+        <div class="admin-logo-container">
+            <div>
+                <div><img src="{{ asset('css/img/wave-logo.png') }}" alt=""></div>
+                <div>WAVE</div>
+            </div>
         </div>
     </div>
     <div class="orders-container">

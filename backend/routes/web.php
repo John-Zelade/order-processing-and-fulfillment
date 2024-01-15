@@ -19,11 +19,12 @@ Route::get('/', function () {
 });
 /**********************************View customer pages********************************************/
 Route::get('/customer/to-pay/{id}/orders',[OrderController::class,'pendingOrders'])->name('customer.pendingOrders');
-Route::get('/customer/to-ship/orders',[OrderController::class,'ordersToShip'])->name('customer.ordersToShip');
-Route::get('/customer/to-receive/orders',[OrderController::class,'ordersToReceive'])->name('customer.ordersToReceive');
-Route::get('/customer/received/orders',[OrderController::class,'receivedOrders'])->name('customer.receivedOrders');
+Route::get('/customer/to-ship/{id}/orders',[OrderController::class,'ordersToShip'])->name('customer.ordersToShip');
+Route::get('/customer/to-receive/{id}/orders',[OrderController::class,'ordersToReceive'])->name('customer.ordersToReceive');
+Route::get('/customer/received/{id}/orders',[OrderController::class,'receivedOrders'])->name('customer.receivedOrders');
 Route::get('/customer/cancelled/{id}/order', [OrderController::class, 'getCancelOrder'])->name('customer.getCancelOrder');
 Route::post('cancelled/order', [OrderController::class, 'cancelOrder'])->name('cancelOrder');
+Route::post('received/order', [OrderController::class, 'orderReceived'])->name('orderReceived');
 
 /**********************************View admin pages********************************************/
 Route::get('admin/orders', [OrderController::class, 'Orders'])->name('admin.orders');
