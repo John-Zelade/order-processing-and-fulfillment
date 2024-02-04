@@ -44,12 +44,7 @@
             <div class="status">
                 <div>Successfully Cancelled!</div>
                 <div class="span-container">
-                    <span>We will be packing your parcel soon!</span>
                     <span></span>
-                    <div>
-                        <i class="fa-solid fa-truck"></i>
-                        <span>Seller will prepare and ship your package by Dec 13.</span>
-                    </div>
                     
                     <div>
                     <i class="fa-solid fa-map-location-dot"></i>

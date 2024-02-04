@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\order;
 use App\Models\order_items;
 use App\Models\customer;
+use Illuminate\Support\Facades\File; // Add this line
 
 class OrderController extends Controller
 {
@@ -179,6 +180,7 @@ function Orders(){
 /***********************************CUSTOMER**************************************/
   /****************************Display To Pay orders******************************/
     function  pendingOrders( $customerID){
+        //$customerID=1;
         $customer = customer::find($customerID);
 
         $orderItem= order_items::join('orders', 'order_items.OrderID', '=', 'orders.id')
@@ -286,5 +288,6 @@ function Orders(){
 
         return view('customer.received',['orderItem'=>$orderItem, 'customerID' => $customerID]);
     }
+    
+    }
 
-}
