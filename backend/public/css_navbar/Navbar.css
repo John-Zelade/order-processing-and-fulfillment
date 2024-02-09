@@ -1,0 +1,258 @@
+.navbar{
+    background-color: #00A9FF;
+}
+
+.navbar .navbar-brand img {
+    margin-left: 2rem;
+}
+
+.navbar .nav-link {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.navbar .navbar-nav .nav-item a {
+    padding: 15px;
+}
+
+.navbar .navbar-nav .nav-but {
+    padding: 10px;
+}
+
+.navbar-nav .nav-but a{
+    font-weight: 700;
+}
+
+.navbar-nav .nav-item a.nav-link {
+    position: relative;
+    text-decoration: none;
+    color: #fff; /* Set the default text color */
+}
+
+.navbar-nav .nav-item a.nav-link::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff; /* Set the underline color */
+    transition: width 0.3s ease-in-out; /* Add transition for width */
+}
+
+.navbar-nav .nav-item a.nav-link:hover::before,
+.navbar-nav .nav-item a.nav-link:focus::before {
+    width: 100%; /* Expand the underline on hover or focus */
+}
+
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 5%; /* Adjust the width as needed */
+  background-color: #CDF5FD;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 30px; /* Adjust the icon size as needed */
+  height: 30px;
+}
+
+.carousel-control-prev{
+    margin-top: 25rem;
+    height: 100px;
+    justify-content: center;
+}
+
+.carousel-control-next{
+    margin-top: 25rem;
+    height: 100px;
+    justify-content: center;
+}
+
+.overview{
+	width: 80%;
+	margin: auto;
+	text-align: center;
+	padding-top: 100px;
+}
+.overview h1{
+	font-size: 30px;
+	font-weight: 500;
+}
+.overview p{
+	color: #00A9FF;
+	line-height: 20px;
+	padding: 10px;
+	font-size: 20px;
+}
+
+
+.footer{
+	width: 100%;
+	text-align: center;
+	padding: 20px 0;
+}
+.footer h4{
+	margin-bottom: 25px;
+	margin-top: 20px;
+	font-weight: 800;
+}
+
+.footer p {
+    font-weight: 400;
+    font-size: 15px;
+    margin-bottom: 30px;
+}
+
+span{
+    color: #00A9FF;
+    font-weight: 900;
+}
+
+.b-icon {
+    margin-top: 30px;
+}
+
+.b-icon .bi{
+	color: #325182;
+	margin: 0 12px;
+	padding: 20px 0;
+	cursor: pointer;
+}
+
+.b-icon a{
+	color: #00A9FF;
+}
+
+
+/*--------------- SHOPPING CART -----------------*/
+.Sub-head {
+    padding: 3rem;
+}
+
+.Sub-head i {
+	color: #00A9FF;
+	font-size: 5rem;
+}
+
+.Sub-head h1{
+    color: #00A9FF;
+	font-weight: 700;
+    font-size: 3rem;
+}
+
+#cart-container {
+	width: 80%;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #ccc; 
+	border-radius: 20px; 
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+	overflow: hidden;
+	background-color: #A0E9FF;
+}
+
+#cart-container table{
+	margin: auto;
+	border-collapse: collapse;
+	width: 100%;
+	table-layout: fixed;
+	padding: 20px;
+}
+
+#cart-container table thead{
+	font-weight: 700;
+}
+
+#cart-container table thead td {
+    border: none;
+    border-bottom: 2px solid #000000; 
+    color: #000000;
+    padding: 10px 30px;
+}
+
+
+#cart-container table td{
+	padding: 10px 30px;
+}
+
+
+#cart-container table td input{
+	width: 30px;
+	height: 30px;
+	padding: 1px;
+}
+
+.cart-bottom {
+	width: 80%;
+	margin: auto;
+	margin-top: 10px;
+	height: 90px;
+	padding: 20px;
+	border: 1px solid #ccc;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	overflow: hidden;
+	background-color: #A0E9FF;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.cart-bottom input[type="checkbox"] {
+	float: left;
+	
+}
+
+.cart-bottom h1 {
+	
+	margin-left: 30px; 
+}
+
+.total-section {
+	font-size: 30px;
+	display: flex;
+	align-items: center;
+}
+
+.checkout-btn {
+    margin-left: 30px;
+}
+
+.checkout-btn button {
+	font-size: 15px;
+    padding: 20px 40px; 
+    background-color: #00A9FF; 
+    color: #fff; 
+    border: none;
+	border-radius: 5px;
+    cursor: pointer;
+    transition: 0.4s;
+    font-weight: 600;
+}
+
+button:hover{
+    background-color: rgb(39, 95, 122);
+    box-shadow: none;
+}
+
+.quantity-controls {
+	display: flex;
+	align-items: center;
+	margin-top: 10px;
+}
+
+.quantity-controls button {
+	background-color: #ffffff;
+	color: rgb(3, 0, 0);
+	border: none;
+	padding: 4px 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}

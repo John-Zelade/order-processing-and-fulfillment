@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+
 }
 body{
     display: flex;
@@ -15,8 +15,7 @@ body{
     width: 100%;
     color: #ffff;
     background-color:#00A9FF;
-    display: grid;
-    place-items: center;
+
 }
 .admin-logo-container{
     gap: .5rem;
