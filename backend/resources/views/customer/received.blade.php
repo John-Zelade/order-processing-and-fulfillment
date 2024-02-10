@@ -3,30 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="{{ asset('js_navbar/bootstrap.bundle.min.js') }}"></script>
+
+    <link rel="stylesheet" href="{{ asset('css_navbar/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css_navbar/Navbar.css')}}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/Navbar.css') }}" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />  
-<title>Wave</title>
-</head>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />  
+    <title>Wave</title>
+    </head>
 <body>
     <div class="header">
-        <div class="logo-container">
-            <div><img src="{{ asset('css/img/wave-logo.png') }}" alt=""></div>
-            <div class="nav">
-                <div>WAVE</div>
-                <div class="nav-links" id="navLinks">
-			    	<ul>
-			    		<li> <a href="#">HOME</a></li>
-			    		<li> <a href="#">PRODUCTS</a></li>
-			    		<li> <a href="#">CONTACT</a></li>
-			    		<li> <a href="#">ABOUT</a></li>
-			    	</ul>
-			    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><img src="/pics/Logo.png" alt="logo"
+                    style="height: 10vh; width: auto;"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">HOME</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">PRODUCTS</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            CONTACT
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">FAQ</a></li>
+                            <hr class="dropdown-divider">
+                            <li><a class="dropdown-item" href="#">CONTACT INFORMATION</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active">ABOUT</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-but">
+                        <a class="btn btn-outline-light" href="ShoppingCart.html">
+                            <!-- Adjusted size of the cart icon -->
+                            <i class="bi bi-cart" style="font-size: 1rem;"></i>
+                        </a>
+                    </li>
+                    <li class="nav-but">
+                        <a class="btn btn-outline-light" href="#">Signup</a>
+                    </li>
+                    <li class="nav-but">
+                        <!-- Set the background color of the "Login" button to #1277aa -->
+                        <a class="btn text-white" style="background-color: #1277aa;" href="#">Login</a>
+                    </li>
+                </ul>
             </div>
         </div>
+    </nav>
         <div class="status-container">
             <div> <a href="{{ route('customer.pendingOrders',  ['id' => $customerID]) }}">To Pay</a></div>
             <div><a href="{{ route('customer.ordersToShip', ['id' => $customerID]) }}">To Ship   </a></div>
